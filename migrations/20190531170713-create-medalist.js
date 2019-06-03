@@ -9,13 +9,29 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       OlympianId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Olympians',
+          key: 'id'
+        }
       },
       EventId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Events',
+          key: 'id'
+        }
       },
       medal: {
         type: Sequelize.STRING
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
       }
     });
   },
