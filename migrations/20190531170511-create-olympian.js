@@ -18,12 +18,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       height: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       weight: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       team: {
+        type: Sequelize.STRING
+      },
+      sport: {
         type: Sequelize.STRING
       },
       createdAt: {
