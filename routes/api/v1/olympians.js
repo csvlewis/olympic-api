@@ -2,11 +2,12 @@ var express = require("express");
 var router = express.Router();
 var Olympian = require('../../../models').Olympian;
 var Medalist = require('../../../models').Medalist;
+var Event = require('../../../models').Event;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 pry = require('pryjs');
 
-// GET all Olympians
+// GET Olympians
 router.get('/', function(req, res) {
   if (req.query.age == 'youngest') {
     Olympian.findAll({
@@ -50,6 +51,9 @@ router.get('/', function(req, res) {
     });
   }
 });
+
+
+
 
 // function addTotalMedalsWon(olympians) {
 //   return new Promise((resolve, reject) => {
