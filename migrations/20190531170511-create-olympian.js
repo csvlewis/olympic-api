@@ -18,21 +18,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       height: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       weight: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       team: {
         type: Sequelize.STRING
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+      sport: {
+        type: Sequelize.STRING
       }
     });
   },
