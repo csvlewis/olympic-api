@@ -8,20 +8,47 @@ pry = require('pryjs');
 
 // GET all Olympians
 router.get('/', function(req, res) {
-  Olympian.findAll({
-    attributes: ['id', 'name', 'team', 'age', 'sport']
-  })
-  .then(olympians => {
-    addTotalMedalsWon(olympians)
-    .then(result => {
-      res.setHeader("Content-Type", "application/json");
-      res.status(200).send(JSON.stringify(result));
+  if (req.query.age == 'youngest') {
+    Olympian.findAll({
+      attributes: ['id', 'name', 'team', 'age', 'sport'],
+      order: [['age', 'ASC']]
     })
-  })
-  .catch(error => {
-    res.setHeader("Content-Type", "application/json");
-    res.status(400).send({ error })
-  });
+    .then(olympians => {
+      res.setHeader("Content-Type", "application/json");
+      res.status(200).send(JSON.stringify(olympians[0]));
+    })
+    .catch(error => {
+      res.setHeader("Content-Type", "application/json");
+      res.status(400).send({ error })
+    });
+  }
+  else if (req.query.age == 'oldest') {
+    Olympian.findAll({
+      attributes: ['id', 'name', 'team', 'age', 'sport'],
+      order: [['age', 'DESC']]
+    })
+    .then(olympians => {
+      res.setHeader("Content-Type", "application/json");
+      res.status(200).send(JSON.stringify(olympians[0]));
+    })
+    .catch(error => {
+      res.setHeader("Content-Type", "application/json");
+      res.status(400).send({ error })
+    });
+  }
+  else {
+    Olympian.findAll({
+      attributes: ['id', 'name', 'team', 'age', 'sport']
+    })
+    .then(olympians => {
+      res.setHeader("Content-Type", "application/json");
+      res.status(200).send(JSON.stringify(olympians));
+    })
+    .catch(error => {
+      res.setHeader("Content-Type", "application/json");
+      res.status(400).send({ error })
+    });
+  }
 });
 
 // function addTotalMedalsWon(olympians) {
