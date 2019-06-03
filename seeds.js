@@ -3,7 +3,6 @@ var csv =  require('fast-csv');
 const Event = require('./models').Event;
 const Olympian = require('./models').Olympian;
 const Medalist = require('./models').Medalist;
-pry = require('pryjs');
 
 let counter  = 0;
 let csvStream = csv.fromPath("./public/olympics.csv", {headers: true})
