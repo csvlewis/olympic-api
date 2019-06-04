@@ -45,7 +45,6 @@ router.get('/:id/medalists', function(req, res) {
     res.status(200).send(JSON.stringify(medalists));
   })
   .catch(error => {
-    eval(pry.it)
     res.setHeader("Content-Type", "application/json");
     res.status(400).send({ error })
   });
