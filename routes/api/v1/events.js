@@ -36,7 +36,7 @@ router.get('/:id/medalists', function(req, res) {
     attributes: ['title'],
     include: [{
       model: Medalist,
-      where: { medal: { [Op.not]: 'null' } },
+      where: { medal: { [Op.not]: 'NA' } },
       attributes: ['name', 'team', 'age', 'medal']
     }]
   })
