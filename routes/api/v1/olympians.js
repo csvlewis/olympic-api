@@ -8,69 +8,92 @@ const Op = Sequelize.Op;
 pry = require('pryjs');
 
 // GET Olympians
-router.get('/', function(req, res) {
-  if (req.query.age == 'youngest') {
+router.get("/", async function(req, res, next) {
+  res.setHeader("Content-Type", "application/json");
+  if (req.query.age == 'oldest')
     Olympian.findAll({
-      attributes: ['id', 'name', 'team', 'age', 'sport'],
-      order: [['age', 'ASC']]
-    })
-    .then(olympians => {
-      res.setHeader("Content-Type", "application/json");
-      res.status(200).send(JSON.stringify(olympians[0]));
-    })
-    .catch(error => {
-      res.setHeader("Content-Type", "application/json");
-      res.status(400).send({ error })
-    });
-  }
-  else if (req.query.age == 'oldest') {
-    Olympian.findAll({
-      attributes: ['id', 'name', 'team', 'age', 'sport'],
+      include: [{
+        model: Medalist,
+        where: { medal: {[Op.not]: 'NA'}},
+        required: false
+      }],
+      attributes: ['name', 'team', 'age', 'sport'],
       order: [['age', 'DESC']]
     })
     .then(olympians => {
-      res.setHeader("Content-Type", "application/json");
-      res.status(200).send(JSON.stringify(olympians[0]));
+      olympian = olympians[0]
+      let formattedOlympian = {
+        name: olympian.name,
+        team: olympian.team,
+        age: olympian.age,
+        sport: olympian.sport,
+        total_medals_won: olympian.Medalists.length
+      };
+      return formattedOlympian;
+    })
+    .then(olympian => {
+      res.status(200).send({olympian: olympian});
     })
     .catch(error => {
-      res.setHeader("Content-Type", "application/json");
-      res.status(400).send({ error })
+      console.log(error)
+      res.status(500).send({ error })
     });
-  }
-  else {
+  else if (req.query.age == 'youngest')
     Olympian.findAll({
-      attributes: ['id', 'name', 'team', 'age', 'sport']
+      include: [{
+        model: Medalist,
+        where: { medal: {[Op.not]: 'NA'}},
+        required: false
+      }],
+      attributes: ['name', 'team', 'age', 'sport'],
+      order: [['age', 'ASC']]
     })
     .then(olympians => {
-      res.setHeader("Content-Type", "application/json");
-      res.status(200).send(JSON.stringify(olympians));
+      olympian = olympians[0]
+      let formattedOlympian = {
+        name: olympian.name,
+        team: olympian.team,
+        age: olympian.age,
+        sport: olympian.sport,
+        total_medals_won: olympian.Medalists.length
+      };
+      return formattedOlympian;
+    })
+    .then(olympian => {
+      res.status(200).send({olympian: olympian});
     })
     .catch(error => {
-      res.setHeader("Content-Type", "application/json");
-      res.status(400).send({ error })
+      console.log(error)
+      res.status(500).send({ error })
     });
-  }
+  else
+    Olympian.findAll({
+      include: [{
+        model: Medalist,
+        where: { medal: {[Op.not]: 'NA'}},
+        required: false
+      }],
+      attributes: ['name', 'team', 'age', 'sport']
+    })
+    .then(olympians => {
+      return olympians.map(function (olympian) {
+        let formattedOlympian = {
+          name: olympian.name,
+          team: olympian.team,
+          age: olympian.age,
+          sport: olympian.sport,
+          total_medals_won: olympian.Medalists.length
+        };
+        return formattedOlympian;
+      })
+    })
+    .then(olympians => {
+      res.status(200).send({olympians: olympians});
+    })
+    .catch(error => {
+      console.log(error)
+      res.status(500).send({ error })
+    });
 });
-
-
-
-
-// function addTotalMedalsWon(olympians) {
-//   return new Promise((resolve, reject) => {
-//     resolve(olympians.map(async function(olympian) {
-//       var r = olympian.toJSON()
-//       r.total_medals_won = await olympian.getTotalMedals()
-//       return r
-//     })
-//     )
-//   })
-// }
-//
-// const getMedalsWon = async (id) => {
-//   const allMedals = await Medalist.findAll({
-//     where: {OlympianId: id, medal: {[Op.not]: 'NA'}}
-//   })
-//   return await allMedals.length
-// }
 
 module.exports = router;
