@@ -48,6 +48,9 @@ let csvStream = csv.fromPath("./public/olympics.csv", {headers: true})
         where: {
           OlympianId: olympian_id,
           EventId: event_id,
+          name: name,
+          team: team,
+          age: age,
           medal: medal
         }
       });
