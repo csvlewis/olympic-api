@@ -1,4 +1,3 @@
-pry = require('pryjs');
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Olympian = sequelize.define('Olympian', {

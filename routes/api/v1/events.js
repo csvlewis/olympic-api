@@ -6,9 +6,6 @@ var Event = require('../../../models').Event;
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
 
-[sequelize.fn('array_agg', sequelize.col('name'), 'events')]
-
-
 // GET All Events
 router.get('/', function(req, res) {
   Event.findAll({
