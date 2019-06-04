@@ -3,6 +3,7 @@ var csv =  require('fast-csv');
 const Event = require('./models').Event;
 const Olympian = require('./models').Olympian;
 const Medalist = require('./models').Medalist;
+pry = require('pryjs');
 
 let counter  = 0;
 let csvStream = csv.fromPath("./public/olympics.csv", {headers: true})
@@ -12,39 +13,50 @@ let csvStream = csv.fromPath("./public/olympics.csv", {headers: true})
   let sex = record.Sex;
   let age = record.Age;
   let height = record.Height;
-  let weight = record.Weight;
+  if (record.Weight == 'null')
+    var weight = null
+  else
+    var weight = record.Weight
   let team = record.Team;
   let sport = record.Sport;
   let title = record.Event;
   let medal = record.Medal;
-  Event.findOrCreate({
-    where: {
-      title: title,
-      sport: sport
-    }
-  }).then(event => {
-    Olympian.findOrCreate({
-      where: {
-        name: name,
-        sex: sex,
-        age: age,
-        height: height,
-        weight: weight,
-        team: team,
-        sport: sport
-      }
-    }).then(olympian => {
-      var olympian_id = olympian[0].id;
-      var event_id = event[0].id;
-      Medalist.findOrCreate({
+  const createModels = async function() {
+    try {
+      const event = await Event.findOrCreate({
+        where: {
+          title: title,
+          sport: sport
+        }
+      })
+
+      const olympian = await Olympian.findOrCreate({
+        where: {
+          name: name,
+          sex: sex,
+          age: age,
+          height: height,
+          weight: weight,
+          team: team,
+          sport: sport
+        }
+      })
+
+      const olympian_id = olympian[0].id;
+      const event_id = event[0].id;
+      const medalist = await Medalist.findOrCreate({
         where: {
           OlympianId: olympian_id,
           EventId: event_id,
           medal: medal
         }
       });
-    });
-  });
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  createModels()
+
 
   counter ++;
   csvStream.resume();

@@ -21,7 +21,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       weight: {
-        type: Sequelize.STRING
+        allowNull: true,
+        type: Sequelize.INTEGER
       },
       team: {
         type: Sequelize.STRING
