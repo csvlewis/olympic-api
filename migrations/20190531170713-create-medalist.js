@@ -22,6 +22,15 @@ module.exports = {
           key: 'id'
         }
       },
+      name: {
+        type: Sequelize.STRING
+      },
+      team: {
+        type: Sequelize.STRING
+      },
+      age: {
+        type: Sequelize.INTEGER
+      },
       medal: {
         type: Sequelize.STRING
       },

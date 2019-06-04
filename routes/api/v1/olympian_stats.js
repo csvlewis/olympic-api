@@ -4,7 +4,6 @@ var Olympian = require('../../../models').Olympian;
 var Medalist = require('../../../models').Medalist;
 var Event = require('../../../models').Event;
 const sequelize = require('sequelize');
-pry = require('pryjs');
 
 // GET Olympian Stats
 router.get("/", async function(req, res, next) {

@@ -5,7 +5,6 @@ var Medalist = require('../../../models').Medalist;
 var Event = require('../../../models').Event;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-pry = require('pryjs');
 
 // GET Olympians
 router.get("/", async function(req, res, next) {

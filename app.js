@@ -21,5 +21,4 @@ app.use('/api/v1/olympians', olympiansRouter);
 app.use('/api/v1/olympian_stats', olympianStatsRouter);
 app.use('/api/v1/events', eventsRouter);
 
-
 module.exports = app;
