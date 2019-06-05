@@ -157,6 +157,10 @@ If the response is successful, medalists will be returned in the following forma
   ]
 }
 ```
+## Testing
+
+Tests can be run with ```$ npm test```. For more information about seeding the test database, see 'Known Issues'.
+
 ## Known Issues
 
 Most of the issues currently involve seeding the development and test databases. The script in ```seeds.js``` is running a findOrCreate when creating Olympians, so they should not be repeated in the database. However, I think that the script may be running too quickly, because occaisionally (but not always) Olympians will be duplicated in the database after seeding.
