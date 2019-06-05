@@ -21,16 +21,18 @@ router.get("/", async function(req, res, next) {
     const avg_age = await Olympian.findAll({
       attributes: [[sequelize.fn('AVG', sequelize.col('age')), 'age']]
     })
-
+    const male_weight_rounded = Math.round(avg_male_weight[0].weight * 10) / 10
+    const female_weight_rounded = Math.round(avg_female_weight[0].weight * 10) / 10
+    const age_rounded = Math.round(avg_age[0].age * 10) / 10
     const stats = {
       olympian_stats: {
         total_competing_olympians: total_olympians.count,
         average_weight: {
           unit: 'kg',
-          male_olympians: avg_male_weight[0].weight,
-          female_olympians: avg_female_weight[0].weight
+          male_olympians: male_weight_rounded,
+          female_olympians: female_weight_rounded
         },
-        average_age: avg_age[0].age
+        average_age: age_rounded
       }
     }
     res.status(200).send(stats);

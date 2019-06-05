@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "npx nyc jest --forceExit --runInBand"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -15,5 +16,11 @@
     "pryjs": "^1.0.3",
     "sequelize": "^5.8.7",
     "sequelize-cli": "^5.4.0"
+  },
+  "devDependencies": {
+    "jest": "^24.8.0",
+    "nyc": "^14.1.1",
+    "shelljs": "^0.8.3",
+    "supertest": "^4.0.2"
   }
 }
