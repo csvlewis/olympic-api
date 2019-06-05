@@ -159,12 +159,18 @@ If the response is successful, medalists will be returned in the following forma
 ```
 ## Known Issues
 
-Seeding test database
-Repeated Olympians
+Most of the issues currently involve seeding the development and test databases. The script in ```seeds.js``` is running a findOrCreate when creating Olympians, so they should not be repeated in the database. However, I think that the script may be running too quickly, because occaisionally (but not always) Olympians will be duplicated in the database after seeding.
+
+Similarly, the seeder script is currently set to seed the development database only. To seed my test database, I set the development database name in ```config.json``` to be the name of my test database and ran the seeder script once, then set it back to the development database. I want to find a better way to seed my test database in the future.
 
 ## Tech Stack
 
+- [Node.js](https://nodejs.org/en/)
+- [Express.js](https://expressjs.com/)
+
 ## Created By
+
+- [Chris Lewis](https://github.com/csvlewis)
 
 
 
