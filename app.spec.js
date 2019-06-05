@@ -36,15 +36,6 @@ describe('api', () => {
     });
   });
 
-  describe('Test GET /api/v1/olympians?age=oldest path', () => {
-    test('should return the oldest olympian with a 200 status', () => {
-      return request(app).get('/api/v1/olympians?age=oldest').then(response => {
-        expect(response.status).toBe(200);
-        expect(response.body.olympian.age).toBe(62);
-      });
-    });
-  });
-
   describe('Test GET /api/v1/olympian_stats path', () => {
     test('should return olympian stats with a 200 status', () => {
       return request(app).get('/api/v1/olympian_stats').then(response => {
